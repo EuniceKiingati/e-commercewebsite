@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+
+  <head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/signuplogin.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- header section starts  -->
+
+<header class="header">
+
+  <a href="{% url 'home'%}" class="logo"> <i class="fas fa-lightbulb"></i>sofa/ke </a>
+
+  <!-- navbar  -->
+
+<nav class="navbar">
+  <a href="{% url 'home'%}">home</a>
+  <a href=" {% url 'shop' %}">shop</a>
+  <a href="{% url 'about' %}">about</a>
+  <a href="{% url 'contact' %}">contact</a>
+</nav>
+
+
+<!-- closer btn  -->
+
+<div id="closer" class="fas fa-times"></div>
+
+<!-- signup section  -->
+
+    <div class="signup-box">
+      <h1>Sign Up</h1>
+      <h4>It's free and only takes a minute</h4>
+      <form method="POST" action="#">
+        {% csrf_token %}
+        {% for field in form %}
+        <label>{{field.label}}</label>
+        {{ field }}
+        {% endfor %}
+
+        {% if form.errors %}
+         {% for field in form %}
+         <em>
+           {{field.errors}}
+         </em>
+         {% endfor %}
+        {% endif %}
+
+        <button type="submit">signup</button>
+      </form>
+      <p>
+        By clicking the Sign Up button,you agree to our <br />
+        <a href="#">Terms and Condition</a> and <a href="#">Policy Privacy</a>
+      </p>
+    </div>
+    <p class="para-2">
+      Already have an account? <a href="{% url 'login'%}">Login here</a>
+    </p>
+
+
+
+    <!-- footer section  -->
+
+<section class="footer">
+
+  <div class="box-container">
+
+      <div class="box">
+          <h3>quick links</h3>
+          <a href=" {% url 'home' %}"> <i class="fas fa-arrow-right"></i> home</a>
+          <a href=" {% url 'shop' %}"> <i class="fas fa-arrow-right"></i> shop</a>
+          <a href=" {% url 'about' %}"> <i class="fas fa-arrow-right"></i> about</a>
+          <a href=" {% url 'contact' %}"> <i class="fas fa-arrow-right"></i> contact</a>
+      </div>
+
+      <div class="box">
+          <h3>extra links</h3>
+          <a href="#"> <i class="fas fa-arrow-right"></i> my order</a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> my wishlist</a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> my account</a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> my favorite</a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> terms of user</a>
+      </div>
+
+      
+
+      <div class="box">
+          <h3>newsletter</h3>
+          <p>subscribe for latest updates</p>
+          <form action="">
+              <input type="email" name="" placeholder="enter your email" id="">
+              <input type="submit" value="subscribe" class="btn">
+          </form>
+      </div>
+
+  </div>
+
+</section>
+
+<section class="credit">
+  Yunis | all rights reserved!
+</section>
+
+<!-- custom js file link  -->
+<script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shop</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+
+<!-- header section starts  -->
+
+<header class="header">
+
+    <a href=" {% url 'home' %}" class="logo"> <i class="fas fa-lightbulb"></i> sofa/ke </a>
+
+    <form action="" class="search-form">
+        <input type="search" placeholder="search here..." id="search-box">
+        <label for="search-box" class="fas fa-search"></label>
+    </form>
+
+    <div class="icons">
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <div id="search-btn" class="fas fa-search"></div>
+        <div id="cart-btn" class="fas fa-shopping-cart"></div>
+        <a href="{% url 'login' %}" ><div id="login-btn" class="fas fa-user" ></div></a>
+    </div>
+
+</header>
+
+<!-- header section ends  -->
+
+<!-- closer btn  -->
+
+<div id="closer" class="fas fa-times"></div>
+
+<!-- navbar  -->
+
+<nav class="navbar">
+    <a href=" {% url 'home' %}">home</a>
+    <a href="{% url 'shop' %}">shop</a>
+    <a href="{% url 'about' %}">about</a>
+    <a href="{% url 'contact' %}">contact</a>
+   
+</nav>
+
+<!-- shopping cart  -->
+
+<div class="shopping-cart">
+
+    <div class="box">
+        <i class="fas fa-times"></i>
+        <img src="{% static 'image/cart-img-1.jpg'%}" alt="">
+        <div class="content">
+            <h3>morden furniture</h3>
+            <span class="quantity"> 1 </span>
+            <span class="multiply"> x </span>
+            <span class="price"> $140.00 </span>
+        </div>
+    </div>
+
+    <div class="box">
+        <i class="fas fa-times"></i>
+        <img src="{% static 'image/cart-img-2.jpg'%}" alt="">
+        <div class="content">
+            <h3>morden furniture</h3>
+            <span class="quantity"> 1 </span>
+            <span class="multiply"> x </span>
+            <span class="price"> $140.00 </span>
+        </div>
+    </div>
+
+    <div class="box">
+        <i class="fas fa-times"></i>
+        <img src="{% static 'image/cart-img-3.jpg' %}" alt="">
+        <div class="content">
+            <h3>morden furniture</h3>
+            <span class="quantity"> 1 </span>
+            <span class="multiply"> x </span>
+            <span class="price"> $140.00 </span>
+        </div>
+    </div>
+
+    <div class="box">
+        <i class="fas fa-times"></i>
+        <img src="{% static 'image/cart-img-4.jpg' %}" alt="">
+        <div class="content">
+            <h3>morden furniture</h3>
+            <span class="quantity"> 1 </span>
+            <span class="multiply"> x </span>
+            <span class="price"> $140.00 </span>
+        </div>
+    </div>
+
+    <h3 class="total"> total : <span>$560.00</span> </h3>
+
+    <a href="#" class="btn">checkout cart</a>
+
+</div>
+
+<!-- login form  -->
+
+<section class="heading">
+    <h3>our shop</h3>
+    <p> <a href=" {% url 'home' %}">home</a> / <span>shop</span> </p>
+</section>
+
+<section class="category">
+
+    <h1 class="title"> <span>our categories</span> <a href="#">view all >></a> </h1>
+
+    <div class="box-container">
+
+        <a href="#" class="box">
+            <img src="{% static 'image/icon-1.png' %}" alt="">
+            <h3>house sofa</h3>
+        </a>
+
+        <a href="#" class="box">
+            <img src="{% static 'image/icon-2.png'%}" alt="">
+            <h3>working table</h3>
+        </a>
+
+        <a href="#" class="box">
+            <img src=" {% static 'image/icon-3.png' %}" alt="">
+            <h3>corner table</h3>
+        </a>
+
+        <a href="#" class="box">
+            <img src="{% static 'image/icon-4.png' %}" alt="">
+            <h3>office chair</h3>
+        </a>
+
+        <a href="#" class="box">
+            <img src="{% static 'image/icon-5.png'%}" alt="">
+            <h3>new wardrobe</h3>
+        </a>
+
+    </div>
+
+</section>
+
+<section class="products">
+
+    <h1 class="title"> <span>our products</span> <a href="#">view all >></a> </h1>
+
+    <div class="box-container">
+        {%for product in products%}
+
+
+        <div class="box">
+            <div class="icons">
+                <a href="#" class="fas fa-shopping-cart"></a>
+                <a href="#" class="fas fa-heart"></a>
+                <a href="#" class="fas fa-eye"></a>
+            </div>
+            <div class="image">
+                <img src="{%static 'images'|add:product.imageURL %}" alt="">
+            </div>
+            <div class="content">
+                <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+				<a class="btn btn-outline-success" href="#">View</a>
+                <div class="price">${{product.unit_price|floatformat:2}}</div>
+                <h1><strong>{{product.name}}</strong></h1>
+                
+            </div>
+           
+
+        </div>
+
+
+        {% endfor %}
+
+    </div>
+
+<!-- footer section  -->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a href=" {% url 'home' %}"> <i class="fas fa-arrow-right"></i> home</a>
+            <a href=" {% url 'shop' %}"> <i class="fas fa-arrow-right"></i> shop</a>
+            <a href=" {% url 'about' %}"> <i class="fas fa-arrow-right"></i> about</a>
+            <a href=" {% url 'contact' %}"> <i class="fas fa-arrow-right"></i> contact</a>
+
+         
+        </div>
+
+        <div class="box">
+            <h3>extra links</h3>
+            <a href="#"> <i class="fas fa-arrow-right"></i> my order</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> my wishlist</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> my account</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> my favorite</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> terms of user</a>
+        </div>
+
+
+
+        <div class="box">
+            <h3>newsletter</h3>
+            <p>subscribe for latest updates</p>
+            <form action="">
+                <input type="email" name="" placeholder="enter your email" id="">
+                <input type="submit" value="subscribe" class="btn">
+            </form>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="credit">
+    Yunis| all rights reserved!
+</section>
+
+<!-- custom js file link  -->
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/cart.js' %}"></script>
+   
+</body>
+</html>
