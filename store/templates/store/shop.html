@@ -13,6 +13,30 @@
     <!-- custom css file link  -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
+    <!-- user js -->
+    <script type="text/javascript">
+    var user='{{ request.user}}'
+    // csrf token
+    function getToken(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getToken ('csrftoken');
+
+    
+    </script>
+
 </head>
 <body>
 
@@ -31,6 +55,7 @@
         <div id="menu-btn" class="fas fa-bars"></div>
         <div id="search-btn" class="fas fa-search"></div>
         <div id="cart-btn" class="fas fa-shopping-cart"></div>
+        <p id="cart-total">{{cartItems}}</p>
         <a href="{% url 'login' %}" ><div id="login-btn" class="fas fa-user" ></div></a>
     </div>
 
@@ -166,7 +191,7 @@
                 <img src="{%static 'images'|add:product.imageURL %}" alt="">
             </div>
             <div class="content">
-                <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+                <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
 				<a class="btn btn-outline-success" href="#">View</a>
                 <div class="price">${{product.unit_price|floatformat:2}}</div>
                 <h1><strong>{{product.name}}</strong></h1>
@@ -227,7 +252,7 @@
 
 <!-- custom js file link  -->
 <script src="{% static 'js/script.js' %}"></script>
-<script src="{% static 'js/cart.js' %}"></script>
+<!-- <script src="{% static 'js/cart.js' %}"></script> -->
    
 </body>
 </html>
