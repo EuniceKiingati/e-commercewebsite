@@ -13,7 +13,7 @@ admin.site.register(models.ShippingAddress)
 
 @admin.register(models.Product)
 class ProducAdmin(admin.ModelAdmin):
-    list_display=['name', 'description', 'price', 'digital']
+    list_display=['name', 'description', 'price', 'in_stock']
 
     def price(self,obj):
         return '$. {:,}'.format(obj.unit_price)
