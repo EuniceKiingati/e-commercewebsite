@@ -53,23 +53,7 @@ function prev(){
     slides[index].classList.add('active');
 }
 
-// cart js
-var updateBtns=document.getElementsByClassName('update-cart')
 
-for(var i=0; i<updateBtns.length; i++){
-    updateBtns[i].addEventListener('click', function(){
-        var productId=this.dataset.product
-        var action=this.dataset.action
-        console.log('productId:', productId, 'action:', action)
-        console.log('USER:', user )
-        if(user==='AnonymousUser'){
-            console.log('not logged in')
-        }else{
-            updateUserorder(productId, action)
-        }
-    })
-
-}
 function updateUserorder(productId, action){
     console.log('user is logged in, sending data...')
     var url='/update_item/'
@@ -90,4 +74,23 @@ function updateUserorder(productId, action){
         console.log('data:', data)
         location.reload()
     })
+}
+
+
+// cart js
+var user = '{{ request.user}}'
+var updateBtns=document.getElementsByClassName('update-cart')
+for(var i=0; i<updateBtns.length; i++){
+    updateBtns[i].addEventListener('click', function(){
+        var productId=this.dataset.product
+        var action=this.dataset.action
+        console.log('productId:', productId, 'action:', action)
+        console.log('USER:', user )
+        if(user==='AnonymousUser'){
+            console.log('not logged in')
+        }else{
+            updateUserorder(productId, action)
+        }
+    })
+
 }

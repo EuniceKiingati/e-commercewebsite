@@ -25,6 +25,7 @@ class Product(models.Model):
     unit_price=models.DecimalField(max_digits=10, decimal_places=2)
     digital=models.BooleanField(default=False, null=True, blank=False)
     image=models.ImageField(null=True, blank=True)
+    in_stock=models.PositiveIntegerField(default=0)
     
     @property# to avoid crashing when one product doesnt have an image
     def imageURL(self):
@@ -50,6 +51,15 @@ class Order(models.Model):
         return str(self.id) 
 
     @property
+    def shipping(self):
+        shipping=False
+        orderitems=self.orderitem_set.all()
+        for i in orderitems:
+            if i.product.digital==False:
+                shipping=True
+        return shipping
+
+    @property
     def get_cart_total(self):
         orderitems=self.orderitem_set.all()
         total=sum([item.get_total for item in orderitems])
@@ -60,6 +70,8 @@ class Order(models.Model):
         orderitems=self.orderitem_set.all()
         total=sum([item.quantity for item in orderitems])
         return total
+    
+    
 
 
 class OrderItem(models.Model):
