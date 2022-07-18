@@ -23,16 +23,16 @@
 
     <a href="{% url 'home'%}" class="logo"> <i class="fas fa-lightbulb"></i>sofa/ke </a>
 
-    <form action="" class="search-form">
+    <!-- <form action="" class="search-form">
         <input type="search" placeholder="search here..." id="search-box">
         <label for="search-box" class="fas fa-search"></label>
-    </form>
+    </form> -->
 
     <div class="icons">
         <div id="menu-btn" class="fas fa-bars"></div>
         <div id="search-btn" class="fas fa-search"></div>
         {%if request.user.is_authenticated %}
-        <div id="cart-btn" class="fas fa-shopping-cart"></div>
+        <a href=" {% url 'cart' %}"><div id="cart-btn" class="fas fa-shopping-cart"></div></a>
         <div id="login-btn" class="fas fa-user"></div>
         {%endif%}
         <div id="login-btn" class="fas">
@@ -67,7 +67,7 @@
 
 <!-- shopping cart  -->
 
-<div class="shopping-cart">
+<!-- <div class="shopping-cart">
 
     <div class="box">
         <i class="fas fa-times"></i>
@@ -117,10 +117,10 @@
 
     <a href="#" class="btn">checkout cart</a>
 
-</div>
+</div> -->
 
 <!-- login form  -->
-<div class="login-form">
+<!-- <div class="login-form">
     <div class="content">
         {{request.user.username}}
         <br/>
@@ -134,7 +134,7 @@
             <input type="submit" value="login now" class="btn">
             {%endif%}
         </div>
-    </div>
+    </div> -->
     <!-- <form action="">
         <h3>login form</h3>
         <input type="email" placeholder="enter your email" class="box">
