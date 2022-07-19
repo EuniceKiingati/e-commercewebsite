@@ -1,0 +1,31 @@
+<header class="header">
+
+    <a href="{% url 'home'%}" class="logo"> <i class="fas fa-lightbulb"></i>sofa/ke </a>
+
+    <!-- <form action="" class="search-form">
+        <input type="search" placeholder="search here..." id="search-box">
+        <label for="search-box" class="fas fa-search"></label>
+    </form> -->
+
+    <div class="icons">
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <div id="search-btn" class="fas fa-search"></div>
+        {%if request.user.is_authenticated %}
+        <a href=" {% url 'cart' %}"><div id="cart-btn" class="fas fa-shopping-cart"></div>
+            <span class="cart-amount">{{cart_item_count}}</span></a>
+        <div id="login-btn" class="fas fa-user"></div>
+        {%endif%}
+        <div id="login-btn" class="fas">
+                {%if request.user.is_authenticated %}
+                <button class="btn">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </button>
+                {%else%}
+                <button class="btn">
+                    <a href="{% url 'login' %}">Login</a>
+                </button>
+                {%endif%}
+        </div>
+    </div>
+
+</header>

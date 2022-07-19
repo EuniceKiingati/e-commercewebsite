@@ -18,7 +18,7 @@
 
 <!-- header section starts  -->
 
-<header class="header">
+<!-- <header class="header">
 
     <a href="{% url 'home' %}" class="logo"> <i class="fas fa-lightbulb"></i> sofa/ke </a>
 
@@ -34,8 +34,8 @@
         <a href="{% url 'login' %}" ><div id="login-btn" class="fas fa-user" ></div></a>
     </div>
 
-</header>
-
+</header> -->
+{%include 'store/_header.html'%}
 <!-- header section ends  -->
 
 <!-- closer btn  -->
@@ -48,63 +48,14 @@
     <a href="{% url 'home' %}">home</a>
     <a href="{% url 'shop'.html">shop</a>
     <a href="{% url 'about' %}">about</a>
-    <a href="contact.html">contact</a>
+    <a href="{% url 'contact' %}">contact</a>
 </nav>
 
-<!-- shopping cart  -->
 
-<div class="shopping-cart">
 
-    <div class="box">
-        <i class="fas fa-times"></i>
-        <img src="{% static 'image/cart-img-1.jpg' %}" alt="">
-        <div class="content">
-            <h3>morden furniture</h3>
-            <span class="quantity"> 1 </span>
-            <span class="multiply"> x </span>
-            <span class="price"> $140.00 </span>
-        </div>
-    </div>
+   
 
-    <div class="box">
-        <i class="fas fa-times"></i>
-        <img src="{% static 'image/cart-img-2.jpg'%}" alt="">
-        <div class="content">
-            <h3>morden furniture</h3>
-            <span class="quantity"> 1 </span>
-            <span class="multiply"> x </span>
-            <span class="price"> $140.00 </span>
-        </div>
-    </div>
-
-    <div class="box">
-        <i class="fas fa-times"></i>
-        <img src="{% static 'image/cart-img-3.jpg'%}" alt="">
-        <div class="content">
-            <h3>morden furniture</h3>
-            <span class="quantity"> 1 </span>
-            <span class="multiply"> x </span>
-            <span class="price"> $140.00 </span>
-        </div>
-    </div>
-
-    <div class="box">
-        <i class="fas fa-times"></i>
-        <img src="{% static 'image/cart-img-4.jpg' %}" alt="">
-        <div class="content">
-            <h3>morden furniture</h3>
-            <span class="quantity"> 1 </span>
-            <span class="multiply"> x </span>
-            <span class="price"> $140.00 </span>
-        </div>
-    </div>
-
-    <h3 class="total"> total : <span>$560.00</span> </h3>
-
-    <a href="#" class="btn">checkout cart</a>
-
-</div>
-
+   
 
 
 <section class="heading">
@@ -121,9 +72,9 @@
     <div class="content">
         <span>welcome to our shop</span>
         <h3>we make your home more astonishing</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam officiis, reiciendis veniam incidunt architecto quam velit dolorum exercitationem cum aliquam ab quas dicta dolores ad earum quasis.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci totam, nam voluptates quis delectus. Ea quo repudiandae.</p>
-        <a href="#" class="btn">read more</a>
+        <p>Sofa/ke is a fully owned Kenyan sofa company. It is a leader in sales and manufacturing of different sofa designs. We are specialized in a wide range of products which are elegant and affordable  </p>
+        <p>Our mission is to make you happy by providing quality and affordable sofas. We live up to this philosophy by ensuring we use the best raw materials for our products</p>
+        <a href="{% url 'shop' %}" class="btn">Start Shopping</a>
     </div>
 
 </section>
@@ -137,21 +88,21 @@
         <div class="box">
             <img src="{% static 'image/serv-1.svg'%}" alt="">
             <h3>product selling</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, quod.</p>
+            <p>We have the capacity to manage large stock and to undertake delivery of sofas. We have 5 delivery trucks that enable us to cut down on waiting time.</p>
             <a href="#" class="btn">read more</a>
         </div>
 
         <div class="box">
             <img src="{% static 'image/serv-2.svg' %}" alt="">
             <h3>product designing</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, quod.</p>
+            <p>We strive to understand our customer needs thus we also offer customized designs and space planning concepts</p>
             <a href="#" class="btn">read more</a>
         </div>
 
         <div class="box">
             <img src="{% static 'image/serv-3.svg'%}" alt="">
             <h3>24 / 7 support</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, quod.</p>
+            <p>We respond to all your enquiries at all times within 30 minutes. You can also subscribe to our newsletter for updates on new arrivals and flash sales. </p>
             <a href="#" class="btn">read more</a>
         </div>
 

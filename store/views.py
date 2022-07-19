@@ -8,48 +8,69 @@ import json
 import datetime
 
 
+def get_user_cart_item_count(request):
+    if request.user.is_authenticated:
+        order =  Order.objects.filter(
+            customer__user=request.user, complete=False).first()
+        if order:
+            return order.get_cart_item
+    return 0
+
 # Create your views here.
+
+
 def home(request):
-    context = {}
+    products = Product.objects.all()[:3]
+    products2 = Product.objects.all()[3:6]
+    cart_item_count =get_user_cart_item_count(request)
+
+    context = {"products": products, "products2": products2,
+               'cart_item_count': cart_item_count}
     return render(request, "store/home.html", context)
 
 
 def store(request):
     products = Product.objects.all()
-    context = {"products": products}
+    cart_item_count =get_user_cart_item_count(request)
+    context = {"products": products, 'cart_item_count':cart_item_count}
     return render(request, "store/store.html", context)
 
 
 def shop(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
         items = order.orderitem_set.all()
-        cartItems = order.get_cart_item
+        cart_item_count = order.get_cart_item
     else:
         items = []
-        order = {"get_cart_total": 0, "get_cart_item": 0, "shipping":False}
-        cartItems = order["get_cart_item"]
+        order = {"get_cart_total": 0, "get_cart_item": 0, "shipping": False}
+        cart_item_count = order["get_cart_item"]
 
     products = Product.objects.all()
-    context = {"products": products, "cartItems": cartItems}
+    products3 = Product.objects.all()[2:4]
+    context = {"products": products,
+               "cart_item_count": cart_item_count, "products3": products3, }
     return render(request, "store/shop.html", context)
 
 
 def about(request):
-    context = {}
+    cart_item_count =get_user_cart_item_count(request)
+    context = {'cart_item_count':cart_item_count}
     return render(request, "store/about.html", context)
 
 
 def cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_item
     else:
         items = []
-        order = {"get_cart_total": 0, "get_cart_item": 0, "shipping":False}
+        order = {"get_cart_total": 0, "get_cart_item": 0, "shipping": False}
         cartItems = order["get_cart_item", "order":order]
     context = {"items": items, "order": order, "cartItems": cartItems}
     # 'order':order
@@ -60,13 +81,14 @@ def cart(request):
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_item
 
     else:
         items = []
-        order = {"get_cart_total": 0, "get_cart_item": 0, "shipping":False}
+        order = {"get_cart_total": 0, "get_cart_item": 0, "shipping": False}
         cartItems = order.get_cart_item
 
     context = {"items": items, "order": order, "cartItems": cartItems}
@@ -74,7 +96,8 @@ def checkout(request):
 
 
 def contact(request):
-    context = {}
+    cart_item_count =get_user_cart_item_count(request)
+    context = {'cart_item_count':cart_item_count}
     return render(request, "store/contact.html", context)
 
 
@@ -104,8 +127,10 @@ def updateItem(request):
 
     customer = request.user.customer
     product = Product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+    order, created = Order.objects.get_or_create(
+        customer=customer, complete=False)
+    orderItem, created = OrderItem.objects.get_or_create(
+        order=order, product=product)
 
     if action == "add":
         orderItem.quantity = orderItem.quantity + 1
@@ -119,26 +144,28 @@ def updateItem(request):
 
     return JsonResponse("Item was added", safe=False)
 
-def process_order(request):
-    transaction_id=datetime.datetime.now().timestamp()
-    data=json.loads(request.body)
-    if request.user.is_authenticated:
-        customer=request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        total=float(data['form']['total'])
-        order.transaction_id=transaction_id
 
-        if total==order.get_cart_total:
-            order.complete=True
-        orderitems=order.orderitem_set.all()
+def process_order(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        total = float(data['form']['total'])
+        order.transaction_id = transaction_id
+
+        if total == order.get_cart_total:
+            order.complete = True
+        orderitems = order.orderitem_set.all()
         for orderitem in orderitems:
-            product=orderitem.product
+            product = orderitem.product
             product.in_stock -= orderitem.quantity
             product.save()
             breakpoint()
         order.save()
 
-        if order.shipping==True:
+        if order.shipping == True:
             ShippingAddress.objects.create(
                 customer=customer,
                 order=order,
@@ -150,7 +177,7 @@ def process_order(request):
 
 
             )
-    
+
     else:
         print("user not logged in")
     return JsonResponse('Payment complete', safe=False)
