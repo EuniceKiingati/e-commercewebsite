@@ -162,7 +162,7 @@ def process_order(request):
             product = orderitem.product
             product.in_stock -= orderitem.quantity
             product.save()
-            breakpoint()
+            # breakpoint()
         order.save()
 
         if order.shipping == True:
