@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+ <!-- user js -->
+ <script type="text/javascript">
+    var user='{{ request.user}}'
+    // csrf token
+    function getToken(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getToken ('csrftoken');
+
+    
+    </script>
+
+
+
+</head>
+<body>
+
+	<!-- header section starts  -->
+	
+	{%include 'store/_header.html'%}
+	
+	<!-- header section ends  -->
+	
+	<!-- closer btn  -->
+	
+	<div id="closer" class="fas fa-times"></div>
+	
+	<!-- navbar  -->
+	
+	<nav class="navbar">
+		<a href="{% url 'home'%}">home</a>
+		<a href=" {% url 'shop' %}">shop</a>
+		<a href="{% url 'about' %}">about</a>
+		<a href="{% url 'contact' %}">contact</a>
+	</nav>
+
+<!-- product section -->
+	<section class="about">
+		<div class="image">
+			<img src="{%static 'images'|add:product.imageURL %}" alt="">
+		</div>
+	
+		<div class="content">
+			<span>Quality Sofas</span>
+			<h3>{{product.name}}</h3>
+			<p>{{product.description}}</p>
+			<div class="price">Ksh. {{product.unit_price|floatformat:2}}</div>
+
+			<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+			<a href="{% url 'shop'  %}" class="btn">Back to shop</a>
+			<!-- <a href="{% url 'shop' %}" class="btn">Start Shopping</a> -->
+		</div>
+	</section>
+
+
+<!-- footer section  -->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a href=" {% url 'home' %}"> <i class="fas fa-arrow-right"></i> home</a>
+            <a href=" {% url 'shop' %}"> <i class="fas fa-arrow-right"></i> shop</a>
+            <a href=" {% url 'about' %}"> <i class="fas fa-arrow-right"></i> about</a>
+            <a href=" {% url 'contact' %}"> <i class="fas fa-arrow-right"></i> contact</a>
+        </div>
+
+        <div class="box">
+            <h3>extra links</h3>
+            <a href=" {% url 'cart' %}"> <i class="fas fa-arrow-right"></i> my order</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> my account</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> terms of user</a>
+        </div>
+
+        
+
+        <div class="box">
+            <h3>newsletter</h3>
+            <p>subscribe for latest updates</p>
+            <form action="">
+                <input type="email" name="" placeholder="enter your email" id="">
+                <input type="submit" value="subscribe" class="btn">
+            </form>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="credit">
+    Yunis | all rights reserved!
+</section>
+
+<!-- custom js file link  -->
+<script src="{% static 'js/script.js' %}"></script>
+    
+</body>
+</html>

@@ -164,6 +164,8 @@ const csrftoken = getToken ('csrftoken');
                 <h3>{{product.name}}</h3>
                 <p>{{product.description}}</p>
                 <a href="{% url 'shop'  %}" class="btn">shop now</a>
+                <a class="btn btn-outline-success" href=" {% url 'productdetails' product.id %}">View</a>
+
             </div>
             <div class="image">
                 <img src="{%static 'images'|add:product.imageURL %}" alt="">
@@ -259,7 +261,7 @@ const csrftoken = getToken ('csrftoken');
 
         <div class="box">
             <h3>extra links</h3>
-            <a href="#"> <i class="fas fa-arrow-right"></i> my order</a>
+            <a href=" {% url 'cart' %}"> <i class="fas fa-arrow-right"></i> my order</a>
             <!-- <a href="#"> <i class="fas fa-arrow-right"></i> my wishlist</a> -->
             <a href="#"> <i class="fas fa-arrow-right"></i> my account</a>
             <!-- <a href="#"> <i class="fas fa-arrow-right"></i> my favorite</a> -->

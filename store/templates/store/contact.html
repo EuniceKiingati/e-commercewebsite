@@ -172,8 +172,8 @@
         <input type="submit" value="send message" class="btn">
     </form>
 
-    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1634314289650!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
-
+    <!-- <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1634314289650!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe> -->
+    <iframe class="map" src="{%static 'images/sectional_wjy5IqF.webp'%}"></iframe>
 </div>
 
 
@@ -210,10 +210,8 @@
 
         <div class="box">
             <h3>extra links</h3>
-            <a href="#"> <i class="fas fa-arrow-right"></i> my order</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> my wishlist</a>
+            <a href=" {% url 'cart' %}"> <i class="fas fa-arrow-right"></i> my order</a>
             <a href="#"> <i class="fas fa-arrow-right"></i> my account</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> my favorite</a>
             <a href="#"> <i class="fas fa-arrow-right"></i> terms of user</a>
         </div>
 

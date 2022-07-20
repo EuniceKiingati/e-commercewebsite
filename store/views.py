@@ -54,6 +54,11 @@ def shop(request):
                "cart_item_count": cart_item_count, "products3": products3, }
     return render(request, "store/shop.html", context)
 
+def productdetails(request, pk):
+    product = Product.objects.get(id=pk)
+    context={"product":product}
+    return render (request, "store/productdetail.html", context)
+
 
 def about(request):
     cart_item_count =get_user_cart_item_count(request)

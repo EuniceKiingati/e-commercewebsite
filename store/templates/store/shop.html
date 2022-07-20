@@ -170,6 +170,7 @@ const csrftoken = getToken ('csrftoken');
                 <p>{{product.description}}</p>
                 <!-- <a href="{% url 'shop'  %}" class="btn">shop now</a> -->
                 <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                <a class="btn btn-outline-success" href=" {% url 'productdetails' product.id %}">View</a>
 
             </div>
             <div class="image">
@@ -204,7 +205,7 @@ const csrftoken = getToken ('csrftoken');
             </div>
             <div class="content">
                 <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
+				<a class="btn btn-outline-success" href=" {% url 'productdetails' product.id %}">View</a>
                 <div class="price">${{product.unit_price|floatformat:2}}</div>
                 <h1><strong>{{product.name}}</strong></h1>
                 
@@ -236,10 +237,8 @@ const csrftoken = getToken ('csrftoken');
 
         <div class="box">
             <h3>extra links</h3>
-            <a href="#"> <i class="fas fa-arrow-right"></i> my order</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> my wishlist</a>
+            <a href=" {% url 'cart' %}"> <i class="fas fa-arrow-right"></i> my order</a>
             <a href="#"> <i class="fas fa-arrow-right"></i> my account</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> my favorite</a>
             <a href="#"> <i class="fas fa-arrow-right"></i> terms of user</a>
         </div>
 
