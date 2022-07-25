@@ -16,4 +16,4 @@ class ProducAdmin(admin.ModelAdmin):
     list_display=['name', 'description', 'price', 'in_stock']
 
     def price(self,obj):
-        return '$. {:,}'.format(obj.unit_price)
+        return 'ksh. {:,}'.format(obj.unit_price)

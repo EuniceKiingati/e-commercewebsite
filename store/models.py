@@ -25,19 +25,15 @@ class Product(models.Model):
     description = models.TextField()
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=False)
-    image = CloudinaryField('image', blank=True, null=True, folder='ecommerce')
+    image = CloudinaryField('image', blank=True, null=True, folder='')
     in_stock = models.PositiveIntegerField(default=0)
 
     @property  # to avoid crashing when one product doesnt have an image
     def imageURL(self):
-        url = ''
         try:
-            if self.image.url.startswith('https'):
-                url = self.image.url
-            else:
-                url = self.image.url.replace('http', 'https')
+            url = self.image.url
         except:
-            pass
+            url = ''
         return url
 
     def __str__(self):
