@@ -10,6 +10,7 @@ pillow = "*"
 django-heroku = "*"
 gunicorn = "*"
 whitenoise = "*"
+cloudinary = "*"
 
 [dev-packages]
 black = "*"
