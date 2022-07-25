@@ -153,8 +153,7 @@ const csrftoken = getToken ('csrftoken');
 
 <!-- home section starts  -->
 
-<section class="home">
-    
+<section class="home">    
     <div class="slides-container">
         
         {%for product in products%}
@@ -168,9 +167,10 @@ const csrftoken = getToken ('csrftoken');
 
             </div>
             <div class="image">
-                <img src="{{product.imageURl}}" alt="">
+                <img src="{{product.imageURL}}" alt="">
             </div>
         </div>
+
         {%endfor%}
 
         <!-- <div class="slide">
@@ -249,7 +249,7 @@ const csrftoken = getToken ('csrftoken');
                 <a href=" {% url 'productdetails' product.id %}" class="fas fa-eye"></a>
             </div>
             <div class="image">
-                <img src="{{product.imageURl}}" alt="">
+                <img src="{{product.imageURL}}" alt="">
             </div>
 
         </div>

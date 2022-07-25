@@ -30,10 +30,14 @@ class Product(models.Model):
 
     @property  # to avoid crashing when one product doesnt have an image
     def imageURL(self):
+        url = ''
         try:
-            url = self.image.url
+            if self.image.url.startswith('https'):
+                url = self.image.url
+            else:
+                url = self.image.url.replace('http', 'https')
         except:
-            url = ''
+            pass
         return url
 
     def __str__(self):
