@@ -19,27 +19,30 @@
 						<p>Shipping Information:</p>
 						<hr>
 						<div class="form-field">
-							<input class="form-control" type="text" name="address" placeholder="Address..">
+							<input class="form-control" type="text" name="address" placeholder="Address.." required="required">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="city" placeholder="City..">
+							<input class="form-control" type="text" name="city" placeholder="City.." required="required">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="town" placeholder="Town..">
+							<input class="form-control" type="text" name="town" placeholder="Town.." required="required">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="area" placeholder="Area..">
+							<input class="form-control" type="text" name="area" placeholder="Area.." required="required">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="building" placeholder="Building..">
+							<input class="form-control" type="text" name="building" placeholder="Building.." required="required">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="number" placeholder="Phone_number..">
+							<input class="form-control" type="tel" pattern="(254)7\d{8}"  
+							title="Phone number must be of the format 2547... E.g 25471234567"
+							id="phone" name="number" placeholder="Phone_number.." required="required">
 						</div>
 					</div>
 
 					<hr>
-					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue"
+					>
 				</form>
 			</div>
 
@@ -93,13 +96,14 @@
 	var form=document.getElementById('form')
 	form.addEventListener('submit', function(e){
 	e.preventDefault()
-	console.log('form submitted')
 	document.getElementById('form-button').classList.add('hidden')
 	document.getElementById('payment-info').classList.remove('hidden')
 	
 	document.getElementById('make-payment').addEventListener('click', function(e){
 		submitFormData()
 	})
+	
+	
 	function submitFormData(){
 		console.log(' Payment button clicked')
 

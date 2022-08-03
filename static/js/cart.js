@@ -1,7 +1,7 @@
 function updateUserorder(productId, action){
     console.log('user is logged in, sending data...')
     var url='/update_item/'
-    // the url above is ehre we wanna send data to
+    // the url above is where we wanna send data to
     fetch(url, {
         method:'POST',
         headers:{
@@ -38,3 +38,23 @@ for(var i=0; i<updateBtns.length; i++){
     })
 
 }
+
+//validate phone number in phone form field
+function validatePhoneNumber(input_str) {
+    var re = '^(?:254|\+254|0)?((?:(?:7(?:(?:[01249][0-9])|(?:5[789])|(?:6[89])))|(?:1(?:[1][0-5])))[0-9]{6})$'
+    
+  
+    return re.test(input_str);
+  }
+  function validateForm(event) {
+    var phone = document.getElementById('myform_phone').value;
+    if (!validatePhoneNumber(phone)) {
+  
+  document.getElementById('phone_error').classList.remove('hidden');
+    } else {
+        
+        document.getElementById('phone_error').classList.add('hidden');
+        alert("Phone number valid")
+    }
+    event.preventDefault();
+  }
