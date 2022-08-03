@@ -4,6 +4,8 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+import uuid
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -62,10 +64,10 @@ class Order(models.Model):
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
-        total = sum([item.get_total for item in orderitems])
+        total = sum([item.get_total for item in orderitems])#keeps addding the total of each item in orderitems
         return total
 
-    @property
+    @property#finding how many items are in a cart
     def get_cart_item(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.quantity for item in orderitems])
@@ -93,6 +95,7 @@ class ShippingAddress(models.Model):
     city = models.CharField(max_length=255, null=False)
     area = models.CharField(max_length=255, null=False)
     building = models.CharField(max_length=255, null=False)
+    number=models.CharField(max_length=20, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

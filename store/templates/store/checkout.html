@@ -33,6 +33,9 @@
 						<div class="form-field">
 							<input class="form-control" type="text" name="building" placeholder="Building..">
 						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="number" placeholder="Phone_number..">
+						</div>
 					</div>
 
 					<hr>
@@ -42,7 +45,7 @@
 
 			<br>
 			<div class="box-element hidden" id="payment-info">
-				<small>Paypal Options</small>
+				<small>Lipa na Mpesa</small>
 				<button id="make-payment"> Make Payment</button>
 			</div>
 			
@@ -78,7 +81,7 @@
 
 	}
 	if (shipping =='False' && user !='Anonymoususer'){
-		// hide form is user is logged in and shipping=false
+		// hide form if user is logged in and shipping=false
 		document.getElementById('form-wrapper').classList.add("hidden")
 		// show payment if logged user is buying digital
 		document.getElementById('payment-info').classList.remove("hidden")
@@ -88,7 +91,6 @@
 
 
 	var form=document.getElementById('form')
-	var total ='{{order.get_cart_total}}'
 	form.addEventListener('submit', function(e){
 	e.preventDefault()
 	console.log('form submitted')
@@ -104,19 +106,21 @@
 		var userFormData={
 			'name':null,
 			'email':null,
-			'total':total,
 		}
 		var shippingInfo={
 			'address':null,
 			'city':null,
 			'area':null,
-			'building':null
+			'building':null,
+			'number':null,
 		}
 		if(shipping!= 'False'){
 			shippingInfo.address=form.address.value
 			shippingInfo.city=form.city.value
 			shippingInfo.area=form.area.value
 			shippingInfo.building=form.building.value
+			shippingInfo.number=form.number.value
+		
 
 		}
 		if(user== 'AnonymousUser'){
@@ -139,7 +143,7 @@
 		.then((response) => response.json())
 		.then((data) =>{
 			console.log('success:', data);
-			alert('Transaction completed');
+			alert('Processing Payment');
 			window.location.href="{%url 'shop' %}"
 		})
 	}

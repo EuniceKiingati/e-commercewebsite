@@ -5,12 +5,23 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.http import JsonResponse
 import json
-import datetime
+from django.views.decorators.csrf import csrf_exempt
+
+
+import logging
+
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+# from utils.serializers import MpesaCheckoutSerializer
+from .utils.mpayments_mpesa_gateway import MpesaGateWay
 
 
 def get_user_cart_item_count(request):
     if request.user.is_authenticated:
-        order =  Order.objects.filter(
+        order = Order.objects.filter(
             customer__user=request.user, complete=False).first()
         if order:
             return order.get_cart_item
@@ -22,7 +33,7 @@ def get_user_cart_item_count(request):
 def home(request):
     products = Product.objects.all()[:3]
     products2 = Product.objects.all()[3:6]
-    cart_item_count =get_user_cart_item_count(request)
+    cart_item_count = get_user_cart_item_count(request)
 
     context = {"products": products, "products2": products2,
                'cart_item_count': cart_item_count}
@@ -31,8 +42,8 @@ def home(request):
 
 def store(request):
     products = Product.objects.all()
-    cart_item_count =get_user_cart_item_count(request)
-    context = {"products": products, 'cart_item_count':cart_item_count}
+    cart_item_count = get_user_cart_item_count(request)
+    context = {"products": products, 'cart_item_count': cart_item_count}
     return render(request, "store/store.html", context)
 
 
@@ -54,24 +65,27 @@ def shop(request):
                "cart_item_count": cart_item_count, "products3": products3, }
     return render(request, "store/shop.html", context)
 
+
 def productdetails(request, pk):
     product = Product.objects.get(id=pk)
-    context={"product":product}
-    return render (request, "store/productdetail.html", context)
+    context = {"product": product}
+    return render(request, "store/productdetail.html", context)
 
 
 def about(request):
-    cart_item_count =get_user_cart_item_count(request)
-    context = {'cart_item_count':cart_item_count}
+    cart_item_count = get_user_cart_item_count(request)
+    context = {'cart_item_count': cart_item_count}
     return render(request, "store/about.html", context)
 
 
 def cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
+        #creating or querying an object
+        #searches a value first, if it doesnt exist, it creates it
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
-        items = order.orderitem_set.all()
+        items = order.orderitem_set.all()#attach order and respective orderitems to the customer
         cartItems = order.get_cart_item
     else:
         items = []
@@ -101,8 +115,8 @@ def checkout(request):
 
 
 def contact(request):
-    cart_item_count =get_user_cart_item_count(request)
-    context = {'cart_item_count':cart_item_count}
+    cart_item_count = get_user_cart_item_count(request)
+    context = {'cart_item_count': cart_item_count}
     return render(request, "store/contact.html", context)
 
 
@@ -151,17 +165,13 @@ def updateItem(request):
 
 
 def process_order(request):
-    transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
-        total = float(data['form']['total'])
-        order.transaction_id = transaction_id
+        total = order.get_cart_total
 
-        if total == order.get_cart_total:
-            order.complete = True
         orderitems = order.orderitem_set.all()
         for orderitem in orderitems:
             product = orderitem.product
@@ -178,11 +188,28 @@ def process_order(request):
                 city=data['shipping']['city'],
                 area=data['shipping']['area'],
                 building=data['shipping']['building'],
-
-
-
+                number=data['shipping']['number']
             )
+        gateway = MpesaGateWay()
+        data = {
+            "amount": total,
+            "phone_number":data['shipping']['number'],
+            "order_id": order.id
+        }
+
+        payload = {"data": data, "request": request}
+        gateway.stk_push_request(payload)
 
     else:
         print("user not logged in")
     return JsonResponse('Payment complete', safe=False)
+
+
+@csrf_exempt
+@authentication_classes([])
+@permission_classes((AllowAny,))
+def mpesa_callback(request, *args, **kwargs):
+    logging.info("{}".format("Callback from MPESA"))
+    data = request.body
+    gateway = MpesaGateWay()
+    return gateway.callback_handler(json.loads(data))

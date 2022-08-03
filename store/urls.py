@@ -18,9 +18,10 @@ urlpatterns = [
     path("update_item/", views.updateItem, name="update_item"),
     path("process_order/", views.process_order, name="process_order"),
     path("productdetail/<int:pk>", views.productdetails, name="productdetails"),
+    path("mpesa-callback/", views.mpesa_callback, name="mpesa-callback"),
 
 
-   
+
 
 
 

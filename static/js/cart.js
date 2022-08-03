@@ -1,14 +1,14 @@
 function updateUserorder(productId, action){
     console.log('user is logged in, sending data...')
     var url='/update_item/'
-
+    // the url above is ehre we wanna send data to
     fetch(url, {
         method:'POST',
         headers:{
             'Content-Type':'application/json',
             'X-CSRFToken':csrftoken,
         },
-        body:JSON.stringify({'productId':productId, 'action': action})
+        body:JSON.stringify({'productId':productId, 'action': action})//need to send data as a string
     })
     .then((response)=>{
         return response.json()

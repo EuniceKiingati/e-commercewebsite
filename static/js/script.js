@@ -118,7 +118,7 @@ const sendEmail = ()=>{
     .then(function(response) {
        console.log('SUCCESS!', response.status, response.text);
        document.getElementById("emailForm").reset();
-       alert("Sent")
+       alert("Message sent successfully")
 
     }, function(error) {
        console.log('FAILED...', error);

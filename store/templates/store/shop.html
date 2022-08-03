@@ -206,7 +206,7 @@ const csrftoken = getToken ('csrftoken');
             <div class="content">
                 <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
 				<a class="btn btn-outline-success" href=" {% url 'productdetails' product.id %}">View</a>
-                <div class="price">${{product.unit_price|floatformat:2}}</div>
+                <div class="price">ksh. {{product.unit_price|floatformat:2}}</div>
                 <h1><strong>{{product.name}}</strong></h1>
                 
             </div>

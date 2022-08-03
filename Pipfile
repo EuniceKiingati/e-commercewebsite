@@ -11,6 +11,9 @@ django-heroku = "*"
 gunicorn = "*"
 whitenoise = "*"
 cloudinary = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"

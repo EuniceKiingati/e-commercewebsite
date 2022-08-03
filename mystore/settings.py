@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "store",
+    "phonenumber_field",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -142,7 +144,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 django_heroku.settings(locals())
 
 CLOUDINARY = {
-  'cloud_name': os.getenv("COUDINARY_CLOUD_NAME"),  
-  'api_key': os.getenv("COUDINARY_API_KEY"),  
-  'api_secret': os.getenv("COUDINARY_API_SECRET"),  
+    'cloud_name': os.getenv("COUDINARY_CLOUD_NAME"),
+    'api_key': os.getenv("COUDINARY_API_KEY"),
+    'api_secret': os.getenv("COUDINARY_API_SECRET"),
 }
+CONSUMER_KEY = os.getenv('CONSUMER_KEY',)
+CONSUMER_SECRET = os.getenv('CONSUMER_SECRET',)
+SHORT_CODE = os.getenv('SHORT_CODE',)
+PASS_KEY = os.getenv('PASS_KEY',)
+ACCESS_TOKEN_URL = os.getenv('ACCESS_TOKEN_URL',)
+CHECKOUT_URL = os.getenv('CHECKOUT_URL',)
+CALLBACK_URL = os.getenv('CALLBACK_URL',)
