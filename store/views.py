@@ -81,11 +81,12 @@ def about(request):
 def cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        #creating or querying an object
-        #searches a value first, if it doesnt exist, it creates it
+        # creating or querying an object
+        # searches a value first, if it doesnt exist, it creates it
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
-        items = order.orderitem_set.all()#attach order and respective orderitems to the customer
+        # attach order and respective orderitems to the customer
+        items = order.orderitem_set.all()
         cartItems = order.get_cart_item
     else:
         items = []
@@ -193,11 +194,12 @@ def process_order(request):
         gateway = MpesaGateWay()
         data = {
             "amount": total,
-            "phone_number":data['shipping']['number'],
+            "phone_number": data['shipping']['number'],
             "order_id": order.id
         }
 
         payload = {"data": data, "request": request}
+        print("\n\n\n", payload)
         gateway.stk_push_request(payload)
 
     else:
