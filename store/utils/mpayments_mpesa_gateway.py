@@ -99,12 +99,12 @@ class MpesaGateWay:
             "AccountReference": "Sofa KE",
             "TransactionDesc": "Test",
         }
+        print(req_data)
 
         res = requests.post(
             self.checkout_url, json=req_data, headers=self.headers, timeout=30
         )
         res_data = res.json()
-        print(res_data)
         logging.info("Mpesa request data {}".format(req_data))
         logging.info("Mpesa response info {}".format(res_data))
 
