@@ -104,6 +104,7 @@ class MpesaGateWay:
             self.checkout_url, json=req_data, headers=self.headers, timeout=30
         )
         res_data = res.json()
+        print(req_data)
         logging.info("Mpesa request data {}".format(req_data))
         logging.info("Mpesa response info {}".format(res_data))
 
@@ -131,7 +132,7 @@ class MpesaGateWay:
     def callback_handler(self, data):
         status = self.check_status(data)
         order = self.get_order_object(data)
-        if status == 0: 
+        if status == 0:
             order.complete = True
             order.save()
         logging.info("Order completed info {}".format(data))
