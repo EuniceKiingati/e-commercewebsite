@@ -14,6 +14,7 @@ cloudinary = "*"
 django-phonenumber-field = "*"
 phonenumbers = "*"
 requests = "*"
+djangorestframework = "*"
 
 [dev-packages]
 black = "*"
